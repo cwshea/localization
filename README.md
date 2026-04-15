@@ -1,4 +1,4 @@
-# LOCALIZATION Localization
+# LOCALIZATION using LLM APIs
 
 A full-stack localization application that translates American English text into multiple languages using LLM APIs, with a Go backend, PostgreSQL database, and React frontend.
 
