@@ -1,0 +1,7 @@
+Please create a localization application with the following features:
+
+1. Core service in Go - translate a string in American English into other languages: British English, Spanish, Traditional Chinese, Simplified Chinese, Hindi
+
+2. Save the (source string, translated strings, translation timestamp, locale, LLM (Chatgpt 5 or Gemini 2.5) into a postgres database for future reference
+
+3. A UI in React JS to Create/Edit/Delete the translated string. For the Creation, the user can select the language(s) locale in a list of checkboxes for the source strings to be translated to.

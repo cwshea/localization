@@ -1,0 +1,15 @@
+.env
+node_modules/
+dist/
+backend/vci
+backend/tmp/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+.DS_Store
+gpt-4o.yaml
+gpt-5.yaml
+gemini.yaml

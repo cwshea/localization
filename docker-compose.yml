@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: localization
+      POSTGRES_PASSWORD: localization
+      POSTGRES_DB: localization
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/internal/database/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U localization"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres://localization:localization@db:5432/localization?sslmode=disable
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GCP_PROJECT: ${GCP_PROJECT:-prj-dm-ds-v0-pdigi-dev-5gf}
+      GCP_LOCATION: ${GCP_LOCATION:-us-central1}
+      CONFIG_DIR: /config
+      GOOGLE_APPLICATION_CREDENTIALS: /gcp/application_default_credentials.json
+    volumes:
+      - ./gpt-5.yaml:/config/gpt-5.yaml:ro
+      - ./gemini.yaml:/config/gemini.yaml:ro
+      - ~/.config/gcloud/application_default_credentials.json:/gcp/application_default_credentials.json:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      API_URL: http://backend:8080
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
