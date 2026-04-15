@@ -1,0 +1,12 @@
+  llm:
+    provider: openai
+    model: gpt-5
+    temperature: 1  # 0.0 = deterministic, 1.0 = creative
+    timeout: 600.0  # seconds
+
+  secrets:
+    source: gcp-secret
+    gcp:
+      project_id: your-gcp-project-id
+      secret_name: your-secret-name
+      version: 1

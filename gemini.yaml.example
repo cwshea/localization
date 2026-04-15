@@ -1,0 +1,8 @@
+llm:
+    provider: gemini
+    model: gemini-2.5-pro
+    temperature: 1  # 0.0 = deterministic, 1.0 = creative
+    timeout: 600.0  # seconds
+
+secrets:
+    use_adc: true  # No API key required; uses Application Default Credentials
